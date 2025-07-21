@@ -81,7 +81,7 @@ cp .env.example .env.local
 
 # 5. Rode o projeto
 yarn dev
-``
+```
 
 ---
 
@@ -102,4 +102,3 @@ Este projeto está licenciado sob a **Licença MIT**.
 Veja o arquivo [LICENSE](./LICENSE) para detalhes completos.
 
 ---
-```
