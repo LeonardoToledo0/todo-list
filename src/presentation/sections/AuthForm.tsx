@@ -34,6 +34,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({
     onLoginSubmit,
     onRegisterSubmit,
 }) => {
+    const [password, setPassword] = React.useState("");
+    const [confirmPassword, setConfirmPassword] = React.useState("");
+
 
 
     const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,13 +55,19 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         const password = (form.elements.namedItem("password") as HTMLInputElement).value;
         const confirmPassword = (form.elements.namedItem("confirmPassword") as HTMLInputElement).value;
 
+        if (password.length < 6) {
+            toast.error("A senha deve ter no mínimo 6 caracteres.");
+            return;
+        }
+
         if (password !== confirmPassword) {
-            toast.error("As senhas não coincidem.");
+            toast.error("As senhas não coincidem.");
             return;
         }
 
         onRegisterSubmit({ username, email, password });
     };
+
 
     return (
         <>
@@ -131,6 +140,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                                 placeholder="Senha"
                                 required
                                 autoComplete="new-password"
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="w-full p-3 rounded border-b border-gray-300 text-white placeholder-gray-300 bg-transparent focus:outline-none focus:border-gray-700 mt-4"
                             />
                             <input
@@ -139,6 +149,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                                 placeholder="Senha"
                                 required
                                 autoComplete="new-current-password"
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+
                                 className="w-full p-3 rounded border-b border-gray-300 text-white placeholder-gray-300 bg-transparent focus:outline-none focus:border-gray-700 mt-4"
                             />
                             <button
