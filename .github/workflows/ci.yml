@@ -23,6 +23,19 @@ jobs:
         with:
           node-version: 18
 
+      - name: Remove package-lock.json if exists
+        run: |
+          if [ -f package-lock.json ]; then
+            rm package-lock.json
+            echo "Removed package-lock.json to avoid conflicts with yarn.lock"
+          fi
+
+      - name: Set Yarn registry to Yarn mirror
+        run: yarn config set registry https://registry.yarnpkg.com
+
+      - name: Clean Yarn cache
+        run: yarn cache clean
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
